@@ -1,0 +1,15 @@
+livenessProbe:
+  path: "/health"
+readinessProbe:
+  path: "/health"
+#resources:
+#  limits:
+#    cpu: 100m
+#    memory: 128Mi
+#  requests:
+#    cpu: 100m
+#    memory: 128Mi
+#podDisruptionBudget:
+#  enabled: false
+#  # minAvailable: 1
+#  maxUnavailable: 1

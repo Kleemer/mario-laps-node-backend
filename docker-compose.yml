@@ -1,0 +1,43 @@
+version: "3"
+services:
+  app:
+    image: node:12-alpine
+    ports:
+      - 9001:9001
+    volumes:
+      - ./:/app:cached
+      - /app/node_modules
+      - /app/dist
+    depends_on:
+      - database
+      - migration
+    command: /bin/ash -c "cd /app && yarn install && DOTENV=.env.docker yarn dev"
+
+  database:
+    image: mysql:5.7
+    volumes:
+      - database_data:/var/lib/mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=registry
+    expose:
+      - 3306
+    ports:
+      - 9002:3306
+
+  migration:
+    image: arojunior/flyway:5.2.4
+    command: "wait-for-it --timeout=30 --strict database:3306 -- \
+        flyway \
+          -url=jdbc:mysql://database:3306?useSSL=false \
+          -schemas=registry \
+          -user=root \
+          -password=password \
+          -connectRetries=60 migrate"
+    volumes:
+      - ./migration:/flyway/sql
+
+volumes:
+  database_data:
+    driver: local

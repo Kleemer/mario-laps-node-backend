@@ -1,0 +1,127 @@
+openapi: 3.0.1
+info:
+  title: MarioLaps API
+  version: "1.0"
+  description: The MarioLaps API
+servers:
+  - url: /
+tags:
+  - name: session
+  - name: round
+  - name: race
+paths:
+  /health:
+    get:
+      summary: Returns a healthcheck
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  uptime:
+                    type: number
+                  activeDatabaseConnections:
+                    type: number
+                required:
+                  - uptime
+                  - activeDatabaseConnections
+  /users:
+    get:
+      summary: Returns the list of users
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+                required:
+                  - data
+components:
+  schemas:
+    Session:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+        rounds:
+          type: array
+          items:
+            $ref: "#/components/schemas/Round"
+      required:
+        - id
+        - createdAt
+    Round:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+        races:
+          type: array
+          items:
+            $ref: "#/components/schemas/Race"
+    Race:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+        positions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Position"
+    Position:
+      type: object
+      additionalProperties: false
+      properties:
+        position:
+          type: integer
+        userId:
+          type: string
+          format: uuid
+        raceId:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+    User:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          format: uuid
+        username:
+          type: string
+        password:
+          type: string
+        avatar:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
