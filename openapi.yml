@@ -46,11 +46,222 @@ paths:
                       $ref: "#/components/schemas/User"
                 required:
                   - data
+  /users/{user}:
+    get:
+      summary: Get user
+      parameters:
+        - in: path
+          name: user
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    items:
+                      $ref: "#/components/schemas/User"
+                required:
+                  - data
+  /sessions:
+    get:
+      summary: Returns the list of sessions
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Session"
+                required:
+                  - data
+    post:
+      summary: Create a new session
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    items:
+                      $ref: "#/components/schemas/Session"
+                required:
+                  - data
+  /rounds:
+    post:
+      summary: Create a new round in the session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/RoundInput"
+                - type: object
+                  required:
+                    - sessionId
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Round"
+                required:
+                  - data
+  /races:
+    post:
+      summary: Create a new race in the round
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/RaceInput"
+                - type: object
+                  required:
+                    - roundId
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Race"
+                required:
+                  - data
+  /races/{race}/laps:
+    patch:
+      summary: Update withLap
+      parameters:
+        - in: path
+          name: race
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/RaceLapsInput"
+                - type: object
+                  required:
+                    - withLap
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Race"
+                required:
+                  - data
+  /races/{race}/types:
+    patch:
+      summary: Update race type
+      parameters:
+        - in: path
+          name: race
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/RaceTypesInput"
+                - type: object
+                  required:
+                    - type
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Race"
+                required:
+                  - data
+  /races/{race}/positions:
+    post:
+      summary: Add score to race
+      parameters:
+        - in: path
+          name: race
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/RacePositionsInput"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Race"
+                required:
+                  - data
+
 components:
   schemas:
     Session:
       type: object
-      additionalProperties: false
       properties:
         id:
           type: string
@@ -62,12 +273,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Round"
-      required:
-        - id
-        - createdAt
     Round:
       type: object
-      additionalProperties: false
       properties:
         id:
           type: string
@@ -81,7 +288,6 @@ components:
             $ref: "#/components/schemas/Race"
     Race:
       type: object
-      additionalProperties: false
       properties:
         id:
           type: string
@@ -92,10 +298,29 @@ components:
         positions:
           type: array
           items:
-            $ref: "#/components/schemas/Position"
-    Position:
+            $ref: "#/components/schemas/UserPosition"
+        raceType:
+          type: object
+          nullable: true
+          properties:
+            data:
+              $ref: "#/components/schemas/RaceType"
+    RaceType:
       type: object
-      additionalProperties: false
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+    UserPosition:
+      type: object
       properties:
         position:
           type: integer
@@ -108,20 +333,34 @@ components:
         createdAt:
           type: string
           format: date-time
-    User:
+    RoundInput:
       type: object
-      additionalProperties: false
       properties:
-        id:
+        sessionId:
           type: string
           format: uuid
-        username:
+    RaceInput:
+      type: object
+      properties:
+        sessionId:
           type: string
-        password:
-          type: string
-        avatar:
+          format: uuid
+    RaceLapsInput:
+      type: object
+      properties:
+        withLap:
+          type: boolean
+    RaceTypesInput:
+      type: object
+      properties:
+        type:
           type: string
           nullable: true
-        createdAt:
+    RacePositionsInput:
+      type: object
+      properties:
+        userId:
           type: string
-          format: date-time
+          format: uuid
+        position:
+          type: string

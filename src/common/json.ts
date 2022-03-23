@@ -1,5 +1,5 @@
 interface AsJson {
-  toJson: () => any;
+  toJson: () => any
 }
 
 type Convertible = AsJson | AsJson[] | undefined;
@@ -25,12 +25,12 @@ function toJson(obj: Convertible | Promise<Convertible>): any {
   if (typeof (obj as any).then === "function") {
     const p = obj as Promise<Convertible>;
     return p.then((o: Convertible) => {
-      return toJson(o);
-    });
+      return toJson(o)
+    })
   }
 
   // obj is an AsJSON
-  return (obj as AsJson).toJson();
+  return (obj as AsJson).toJson()
 }
 
-export { toJson, AsJson };
+export { toJson, AsJson }

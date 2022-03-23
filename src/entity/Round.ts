@@ -3,24 +3,23 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from "typeorm"
-import { AsJson } from "../common"
+} from 'typeorm'
+import { AsJson } from '../common'
+import { Session } from './Session';
 
-@Entity({ name: "users" })
-export class User extends BaseEntity implements AsJson {
+@Entity({ name: 'rounds' })
+export class Round extends BaseEntity implements AsJson {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @Column()
-  username: string
+  @ManyToOne(type => Session, { eager: true })
+  session: Session;
 
-  @Column()
-  password: string
-
-  @Column()
-  avatar?: string
+  @Column('uuid')
+  sessionId: string
 
   @CreateDateColumn()
   createdAt: Date
@@ -28,11 +27,11 @@ export class User extends BaseEntity implements AsJson {
   @UpdateDateColumn()
   updatedAt: Date
 
+
   toJson(): any {
     return {
       id: this.id,
-      name: this.username,
-      avatar: this.avatar,
+      sessionId: this.sessionId,
       createdAt: this.createdAt?.toISOString(),
       updatedAt: this.updatedAt?.toISOString(),
     }

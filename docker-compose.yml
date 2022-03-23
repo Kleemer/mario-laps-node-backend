@@ -20,18 +20,18 @@ services:
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_DATABASE=registry
+      - MYSQL_DATABASE=mariolaps
     expose:
       - 3306
     ports:
-      - 9002:3306
+      - 9292:3306
 
   migration:
     image: arojunior/flyway:5.2.4
     command: "wait-for-it --timeout=30 --strict database:3306 -- \
         flyway \
           -url=jdbc:mysql://database:3306?useSSL=false \
-          -schemas=registry \
+          -schemas=mariolaps \
           -user=root \
           -password=password \
           -connectRetries=60 migrate"

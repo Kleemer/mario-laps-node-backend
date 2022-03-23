@@ -21,10 +21,10 @@ The development environment:
 
 | | |
 | --- | --- |
-| Host | localhost:9002 |
+| Host | localhost:9292 |
 | Username | root |
 | Password | password |
-| Database | registry |
+| Database | mariolaps |
 
 The development environment will print a valid authorization code to the console.
 
