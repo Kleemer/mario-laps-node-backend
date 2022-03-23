@@ -17,7 +17,7 @@ export class Race extends BaseEntity implements AsJson {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @ManyToOne(type => Round, { eager: true })
+  @ManyToOne(type => Round)
   round: Round;
 
   @OneToOne(type => RaceType, { nullable: true })
@@ -43,7 +43,6 @@ export class Race extends BaseEntity implements AsJson {
       id: this.id,
       withLap: this.withLap,
       roundId: this.roundId,
-      round: toJson(this.round),
       raceType: toJson(this.raceType),
       raceTypeId: this.raceTypeId,
       createdAt: this.createdAt?.toISOString(),

@@ -13,12 +13,12 @@ export class SessionService {
   }
 
   async createSession(): Promise<Session> {
-    console.log('createSession')
     const result = await this.sessionRepository.save(Session.create())
     await result.reload()
 
     // Create first round
     await this.roundService.createRound(result.id)
+    await result.reload()
 
     return result;
   }

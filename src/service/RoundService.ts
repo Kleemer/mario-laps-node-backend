@@ -13,12 +13,12 @@ export class RoundService {
   }
 
   async createRound(sessionId: string): Promise<Round> {
-    console.log('createRound')
     const result = await this.roundRepository.save(Round.create({ sessionId }))
     await result.reload()
 
     // Create first race
     await this.raceService.createRace(result.id)
+    await result.reload()
 
     return result
   }

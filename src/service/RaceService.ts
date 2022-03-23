@@ -13,17 +13,10 @@ export class RaceService {
   }
 
   async createRace(roundId: string): Promise<Race | undefined> {
-    console.log('createRace')
     const result = await this.raceRepository.save(Race.create({ roundId }))
-    console.log('result', result)
-    try {
-      await result.reload()
-      return result
-    } catch (e) {
-      console.error(e)
-    }
 
-
+    await result.reload()
+    return result
   }
 
   async updateLap(id: string, withLap: boolean): Promise<Race> {
