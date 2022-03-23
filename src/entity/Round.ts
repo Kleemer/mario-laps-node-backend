@@ -9,8 +9,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 import { AsJson, toJson } from '../common'
-import { Race } from './Race';
-import { Session } from './Session';
+import { Race } from './Race'
+import { Session } from './Session'
 
 @Entity({ name: 'rounds' })
 export class Round extends BaseEntity implements AsJson {
@@ -18,7 +18,7 @@ export class Round extends BaseEntity implements AsJson {
   id: string
 
   @ManyToOne(type => Session)
-  session: Session;
+  session: Session
 
   @OneToMany(() => Race, race => race.round, { eager: true })
   races: Race[]

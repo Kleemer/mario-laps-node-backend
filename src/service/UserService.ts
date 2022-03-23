@@ -14,12 +14,8 @@ export class UserService {
 
   async createUser(user: User): Promise<User> {
     const result = await this.userRepository.save(user)
-    const reloaded = await this.getUser(result.id)
+    await result.reload
 
-    if (!reloaded) {
-      throw new Error(`Failed to re-load the saved User ${user.id}.`);
-    }
-
-    return reloaded;
+    return result
   }
 }

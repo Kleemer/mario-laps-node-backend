@@ -42,15 +42,15 @@ describe("User Controller", () => {
     // Assert that the user was returned.
     expect(result.data).toEqual(toJson(user))
     expect(getUser).toHaveBeenCalledWith('1')
-  });
-});
+  })
+})
 
 function mock(data?: Partial<User>): User {
-  const user = new User();
+  const user = new User()
 
-  user.id = data?.id ?? user?.id;
-  user.username = data?.username ?? user?.username;
-  user.avatar = data?.avatar ?? user?.avatar;
+  user.id = data?.id ?? user?.id
+  user.username = data?.username ?? user?.username
+  user.avatar = data?.avatar ?? user?.avatar
 
-  return user;
+  return user
 }

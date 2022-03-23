@@ -20,6 +20,6 @@ export class SessionService {
     await this.roundService.createRound(result.id)
     await result.reload()
 
-    return result;
+    return result
   }
 }

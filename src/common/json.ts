@@ -2,7 +2,7 @@ interface AsJson {
   toJson: () => any
 }
 
-type Convertible = AsJson | AsJson[] | undefined;
+type Convertible = AsJson | AsJson[] | undefined
 
 /**
  * Performs a (shallow) transform of the supplied object by calling the objects toJson function.
@@ -13,17 +13,18 @@ type Convertible = AsJson | AsJson[] | undefined;
 function toJson(obj: Convertible | Promise<Convertible>): any {
   // If obj is an array.
   if (Array.isArray(obj)) {
-    return obj.map((o) => toJson(o));
+    return obj.map((o) => toJson(o))
   }
 
   // If the obj is undefined.
   if (!obj) {
-    return {};
+    return {}
   }
 
   // If obj is a promise
   if (typeof (obj as any).then === "function") {
-    const p = obj as Promise<Convertible>;
+    const p = obj as Promise<Convertible>
+
     return p.then((o: Convertible) => {
       return toJson(o)
     })

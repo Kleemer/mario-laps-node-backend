@@ -41,6 +41,6 @@ describe("User Controller", () => {
             expect.objectContaining({ id: e2.id }),
           ])
         )
-      );
-  });
-});
+      )
+  })
+})

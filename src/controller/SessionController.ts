@@ -16,7 +16,8 @@ export class SessionController {
 
   @Get("/sessions")
   async getAll() {
-    logger.debug('get /sessions');
+    logger.debug('get /sessions')
+
     return {
       data: await toJson(this.sessionService.getSessions()),
     }
@@ -25,9 +26,10 @@ export class SessionController {
   @Post("/sessions")
   @HttpCode(201)
   async create() {
-    logger.debug('post /sessions');
+    logger.debug('post /sessions')
+
     const session = await this.sessionService.createSession()
-    logger.debug('session', session)
+
     return {
       data: await toJson(session),
     }

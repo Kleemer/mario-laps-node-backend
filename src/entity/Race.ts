@@ -9,8 +9,8 @@ import {
   UpdateDateColumn,
 } from "typeorm"
 import { AsJson, toJson } from "../common"
-import { RaceType } from "./RaceType";
-import { Round } from "./Round";
+import { RaceType } from "./RaceType"
+import { Round } from "./Round"
 
 @Entity({ name: "races" })
 export class Race extends BaseEntity implements AsJson {
@@ -18,10 +18,10 @@ export class Race extends BaseEntity implements AsJson {
   id: string
 
   @ManyToOne(type => Round)
-  round: Round;
+  round: Round
 
   @OneToOne(type => RaceType, { nullable: true })
-  raceType?: RaceType;
+  raceType?: RaceType
 
   @Column('bool')
   withLap: boolean
