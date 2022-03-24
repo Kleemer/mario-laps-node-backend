@@ -21,6 +21,11 @@ interface RaceTypeInput {
   type: string | null
 }
 
+interface RacePositionsInput {
+  userId: string
+  position: number
+}
+
 @JsonController()
 export class RaceController {
   constructor(
@@ -54,6 +59,17 @@ export class RaceController {
     logger.debug('patch /races/id/type', id, data.type)
 
     const race = await this.raceService.updateType(id, data.type)
+
+    return {
+      data: await toJson(race),
+    }
+  }
+
+  @Post('/races/:id/positions')
+  async addPositions(@Param('id') id: string, @Body() data: RacePositionsInput[]) {
+    logger.debug('post /races/id/positions', id, data)
+
+    const race = await this.raceService.addPositions(id, data)
 
     return {
       data: await toJson(race),

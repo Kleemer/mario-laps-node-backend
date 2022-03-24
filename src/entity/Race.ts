@@ -4,6 +4,7 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -11,6 +12,7 @@ import {
 import { AsJson, toJson } from '../common'
 import { RaceType } from './RaceType'
 import { Round } from './Round'
+import { UserPosition } from './UserPosition'
 
 @Entity({ name: 'races' })
 export class Race extends BaseEntity implements AsJson {
@@ -22,6 +24,9 @@ export class Race extends BaseEntity implements AsJson {
 
   @OneToOne(type => RaceType, { nullable: true })
   raceType?: RaceType
+
+  @OneToMany(() => UserPosition, userPosition => userPosition.race, { eager: true })
+  userPositions: UserPosition[]
 
   @Column('bool')
   withLap: boolean
@@ -43,6 +48,7 @@ export class Race extends BaseEntity implements AsJson {
       id: this.id,
       withLap: this.withLap,
       roundId: this.roundId,
+      userPositions: toJson(this.userPositions),
       raceType: toJson(this.raceType),
       raceTypeId: this.raceTypeId,
       createdAt: this.createdAt?.toISOString(),

@@ -20,7 +20,7 @@ export class User extends BaseEntity implements AsJson {
   password: string
 
   @Column({ nullable: true })
-  avatar: string | null
+  avatar?: string
 
   @CreateDateColumn()
   createdAt: Date

@@ -173,7 +173,7 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/RaceLapsInput"
+                - $ref: "#/components/schemas/RaceLapInput"
                 - type: object
                   required:
                     - withLap
@@ -207,7 +207,7 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/RaceTypesInput"
+                - $ref: "#/components/schemas/RaceTypeInput"
                 - type: object
                   required:
                     - type
@@ -252,7 +252,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    type: array
+                    type: object
                     items:
                       $ref: "#/components/schemas/Race"
                 required:
@@ -345,12 +345,12 @@ components:
         sessionId:
           type: string
           format: uuid
-    RaceLapsInput:
+    RaceLapInput:
       type: object
       properties:
         withLap:
           type: boolean
-    RaceTypesInput:
+    RaceTypeInput:
       type: object
       properties:
         type:
@@ -363,4 +363,4 @@ components:
           type: string
           format: uuid
         position:
-          type: string
+          type: integer

@@ -3,18 +3,27 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
 import { AsJson } from '../common'
+import { Race } from './Race'
+import { User } from './User'
 
 @Entity({ name: 'userPositions' })
 export class UserPosition extends BaseEntity implements AsJson {
-  @PrimaryColumn('uuid')
+  @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Column('int')
   position: number
+
+  @ManyToOne(type => User)
+  user: User
+
+  @ManyToOne(type => Race)
+  race: Race
 
   @Column('uuid')
   userId: string
