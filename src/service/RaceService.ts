@@ -26,7 +26,7 @@ export class RaceService {
     return await this.raceRepository.save(race)
   }
 
-  async updateType(id: string, type?: string): Promise<Race> {
+  async updateType(id: string, type: string | null): Promise<Race> {
     const race = await this.getRace(id)
 
     race.raceTypeId = type

@@ -5,10 +5,10 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from "typeorm"
-import { AsJson } from "../common"
+} from 'typeorm'
+import { AsJson } from '../common'
 
-@Entity({ name: "users" })
+@Entity({ name: 'users' })
 export class User extends BaseEntity implements AsJson {
   @PrimaryGeneratedColumn('uuid')
   id: string
@@ -19,8 +19,8 @@ export class User extends BaseEntity implements AsJson {
   @Column()
   password: string
 
-  @Column()
-  avatar?: string
+  @Column({ nullable: true })
+  avatar: string | null
 
   @CreateDateColumn()
   createdAt: Date

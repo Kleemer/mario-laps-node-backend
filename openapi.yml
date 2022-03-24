@@ -125,7 +125,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    type: array
+                    type: object
                     items:
                       $ref: "#/components/schemas/Round"
                 required:
@@ -152,7 +152,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    type: array
+                    type: object
                     items:
                       $ref: "#/components/schemas/Race"
                 required:
@@ -186,7 +186,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    type: array
+                    type: object
                     items:
                       $ref: "#/components/schemas/Race"
                 required:
@@ -220,7 +220,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    type: array
+                    type: object
                     items:
                       $ref: "#/components/schemas/Race"
                 required:

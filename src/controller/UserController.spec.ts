@@ -1,6 +1,6 @@
-import { UserController } from "./UserController"
-import { User } from "../entity/User"
-import { toJson } from "../common"
+import { UserController } from './UserController'
+import { User } from '../entity/User'
+import { toJson } from '../common'
 
 const getUsers = jest.fn()
 const getUser = jest.fn()
@@ -12,12 +12,12 @@ const userService = {
 
 const controller = new UserController(userService)
 
-describe("User Controller", () => {
+describe('User Controller', () => {
   beforeEach(() => {
     jest.resetAllMocks()
   })
 
-  it("Should get all users", async () => {
+  it('Should get all users', async () => {
     const users = [
       mock({ id: '1', username: 'one', avatar: 'url' }),
       mock({ id: '2' , username: 'two' }),
@@ -32,7 +32,7 @@ describe("User Controller", () => {
     expect(result.data).toEqual(toJson(users))
   })
 
-  it("Should get single user", async () => {
+  it('Should get single user', async () => {
     const user = mock({ id: '1', username: 'one', avatar: 'url' })
     getUser.mockReturnValue(user)
 

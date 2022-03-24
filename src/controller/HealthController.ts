@@ -1,10 +1,12 @@
-import { uptime } from "os"
-import { Get, JsonController } from "routing-controllers"
-import { Connection, getConnectionManager } from "typeorm"
+import { uptime } from 'os'
+import { Get, JsonController } from 'routing-controllers'
+import { Connection, getConnectionManager } from 'typeorm'
 
 @JsonController()
 export class HealthController {
-  @Get("/health")
+  constructor() {}
+
+  @Get('/health')
   health() {
     const activeDatabaseConnections = getConnectionManager()
       .connections

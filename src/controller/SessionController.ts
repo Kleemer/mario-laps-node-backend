@@ -4,9 +4,9 @@ import {
   JsonController,
   Param,
   Post,
-} from "routing-controllers"
-import { logger, toJson } from "../common"
-import { SessionService } from "../service/SessionService"
+} from 'routing-controllers'
+import { logger, toJson } from '../common'
+import { SessionService } from '../service/SessionService'
 
 @JsonController()
 export class SessionController {
@@ -14,7 +14,7 @@ export class SessionController {
     private sessionService: SessionService = new SessionService()
   ) {}
 
-  @Get("/sessions")
+  @Get('/sessions')
   async getAll() {
     logger.debug('get /sessions')
 
@@ -23,7 +23,7 @@ export class SessionController {
     }
   }
 
-  @Post("/sessions")
+  @Post('/sessions')
   @HttpCode(201)
   async create() {
     logger.debug('post /sessions')

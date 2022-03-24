@@ -7,12 +7,12 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from "typeorm"
-import { AsJson, toJson } from "../common"
-import { RaceType } from "./RaceType"
-import { Round } from "./Round"
+} from 'typeorm'
+import { AsJson, toJson } from '../common'
+import { RaceType } from './RaceType'
+import { Round } from './Round'
 
-@Entity({ name: "races" })
+@Entity({ name: 'races' })
 export class Race extends BaseEntity implements AsJson {
   @PrimaryGeneratedColumn('uuid')
   id: string
@@ -30,7 +30,7 @@ export class Race extends BaseEntity implements AsJson {
   roundId: string
 
   @Column('uuid', { nullable: true })
-  raceTypeId?: string
+  raceTypeId: string | null
 
   @CreateDateColumn()
   createdAt: Date

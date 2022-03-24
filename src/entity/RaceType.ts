@@ -3,10 +3,10 @@ import {
   Column,
   Entity,
   PrimaryColumn,
-} from "typeorm"
-import { AsJson } from "../common"
+} from 'typeorm'
+import { AsJson } from '../common'
 
-@Entity({ name: "raceTypes" })
+@Entity({ name: 'raceTypes' })
 export class RaceType extends BaseEntity implements AsJson {
   @PrimaryColumn()
   id: string
