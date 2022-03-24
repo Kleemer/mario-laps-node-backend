@@ -22,7 +22,7 @@ function toJson(obj: Convertible | Promise<Convertible>): any {
   }
 
   // If obj is a promise
-  if (typeof (obj as any).then === "function") {
+  if (typeof (obj as any).then === 'function') {
     const p = obj as Promise<Convertible>
 
     return p.then((o: Convertible) => {

@@ -1,12 +1,14 @@
-import dotenv from "dotenv"
-dotenv.config({ path: process.env.DOTENV || ".env" })
+import dotenv from 'dotenv'
+dotenv.config({ path: process.env.DOTENV || '.env' })
 
-import bodyParser from "body-parser"
-import express, { Express } from "express"
-import { middleware as OpenApiValidator } from "express-openapi-validator"
-import "reflect-metadata"
-import { useExpressServer } from "routing-controllers"
-import { Connection, createConnection, getConnectionOptions } from "typeorm"
+import bodyParser from 'body-parser'
+import express, { Express } from 'express'
+import { middleware as OpenApiValidator } from 'express-openapi-validator'
+import 'reflect-metadata'
+import { useExpressServer } from 'routing-controllers'
+import {
+  Connection, createConnection, getConnectionOptions,
+} from 'typeorm'
 
 // The TypeORM connection.
 let connection: Connection | undefined
@@ -32,16 +34,16 @@ async function createApp(): Promise<Express> {
   // Load the OpenApi validator
   app.use(
     OpenApiValidator({
-      apiSpec: "openapi.yml",
+      apiSpec: 'openapi.yml',
       validateRequests: true,
       validateResponses: true,
-    })
+    }),
   )
 
   // Initialise Routing Controllers.
   useExpressServer(app, {
-    controllers: [__dirname + "/controller/*"],
-    middlewares: [__dirname + "/middleware/*"],
+    controllers: [ __dirname + '/controller/*' ],
+    middlewares: [ __dirname + '/middleware/*' ],
   })
 
   return app

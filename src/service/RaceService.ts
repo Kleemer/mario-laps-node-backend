@@ -44,7 +44,7 @@ export class RaceService {
       let userPosition = await this.userPositionRepository.findOne({
         where: {
           userId: e.userId,
-          raceId: id
+          raceId: id,
         },
       })
 

@@ -1,6 +1,6 @@
-import { createApp } from "./app"
-import { logger } from "./common/logger"
-import * as jwt from "jsonwebtoken"
+import { createApp } from './app'
+import { logger } from './common/logger'
+import * as jwt from 'jsonwebtoken'
 
 /**
  * Creates and starts the application.
@@ -17,14 +17,14 @@ import * as jwt from "jsonwebtoken"
 
     // Dump a valid auth token for convenience.
     logger.info(
-      "Valid authorization token: ",
-      jwt.sign({}, process.env.JWT_SECRET || "secret")
+      'Valid authorization token: ',
+      jwt.sign({}, process.env.JWT_SECRET || 'secret'),
     )
   } catch (err) {
-    logger.fatal(`Failed to start app.`, err)
+    logger.fatal('Failed to start app.', err)
   }
 })()
 
-process.on("unhandledRejection", (err) => {
-  console.log("unhandledRejection", err)
+process.on('unhandledRejection', (err) => {
+  console.log('unhandledRejection', err)
 })

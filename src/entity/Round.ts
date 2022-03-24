@@ -15,22 +15,22 @@ import { Session } from './Session'
 @Entity({ name: 'rounds' })
 export class Round extends BaseEntity implements AsJson {
   @PrimaryGeneratedColumn('uuid')
-  id: string
+    id: string
 
-  @ManyToOne(type => Session)
-  session: Session
+  @ManyToOne(_ => Session)
+    session: Session
 
   @OneToMany(() => Race, race => race.round, { eager: true })
-  races: Race[]
+    races: Race[]
 
   @Column('uuid')
-  sessionId: string
+    sessionId: string
 
   @CreateDateColumn()
-  createdAt: Date
+    createdAt: Date
 
   @UpdateDateColumn()
-  updatedAt: Date
+    updatedAt: Date
 
 
   toJson(): any {

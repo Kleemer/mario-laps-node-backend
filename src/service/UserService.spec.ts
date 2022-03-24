@@ -1,22 +1,23 @@
-import { UserService } from "./UserService"
+import { UserService } from './UserService'
 
-const mockFindOne = jest.fn()
-const mockCreate = jest.fn()
+// const mockFindOne = jest.fn()
+// const mockCreate = jest.fn()
 const mockSave = jest.fn()
 
 // The service under test.
 const service = new UserService({} as any)
 
-describe("User Controller", () => {
+describe('User Controller', () => {
   beforeEach(() => {
     jest.resetAllMocks()
   })
 
-  it("Should create user", async () => {
-    const user = { id: "1" } as any
+  it('Should create user', async () => {
+    const user = { id: '1' } as any
 
     // Call createUser on the service.
-    const result = await service["createUser"](user)
+    // const result =
+    await service['createUser'](user)
 
     // Assert that create tenant was called.
     // expect(mockCreate).toBeCalledWith({
@@ -28,7 +29,7 @@ describe("User Controller", () => {
     // expect(result).toEqual(expected)
   })
 
-  xit("Should not create tenant if already exists", async () => {
+  it.skip('Should not create tenant if already exists', async () => {
     // const user = { id: "1" } as any
     // const tenant = { id: "1", fqdn: "test.fqdn" } as any
     // mockFindOne.mockReturnValue(tenant)

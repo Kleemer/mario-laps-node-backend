@@ -1,6 +1,6 @@
-import { Session } from "../entity/Session"
-import { getRepository } from "typeorm"
-import { RoundService } from "./RoundService"
+import { Session } from '../entity/Session'
+import { getRepository } from 'typeorm'
+import { RoundService } from './RoundService'
 
 export class SessionService {
   constructor(

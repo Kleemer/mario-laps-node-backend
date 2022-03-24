@@ -1,6 +1,6 @@
-import { getRepository } from "typeorm"
-import { Round } from "../entity/Round"
-import { RaceService } from "./RaceService"
+import { getRepository } from 'typeorm'
+import { Round } from '../entity/Round'
+import { RaceService } from './RaceService'
 
 export class RoundService {
   constructor(
@@ -9,7 +9,7 @@ export class RoundService {
   ) {}
 
   async getRounds(sessionId: string): Promise<Round[]> {
-    return this.roundRepository.find({ where: { sessionId }})
+    return this.roundRepository.find({ where: { sessionId } })
   }
 
   async createRound(sessionId: string): Promise<Round> {

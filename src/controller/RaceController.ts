@@ -29,7 +29,7 @@ interface RacePositionsInput {
 @JsonController()
 export class RaceController {
   constructor(
-    private raceService: RaceService = new RaceService()
+    private raceService: RaceService = new RaceService(),
   ) {}
 
   @Post('/races')
@@ -38,9 +38,7 @@ export class RaceController {
     logger.debug('post /races')
     const race = await this.raceService.createRace(data.roundId)
 
-    return {
-      data: await toJson(race),
-    }
+    return { data: await toJson(race) }
   }
 
   @Patch('/races/:id/laps')
@@ -49,9 +47,7 @@ export class RaceController {
 
     const race = await this.raceService.updateLap(id, data.withLap)
 
-    return {
-      data: await toJson(race),
-    }
+    return { data: await toJson(race) }
   }
 
   @Patch('/races/:id/types')
@@ -60,9 +56,7 @@ export class RaceController {
 
     const race = await this.raceService.updateType(id, data.type)
 
-    return {
-      data: await toJson(race),
-    }
+    return { data: await toJson(race) }
   }
 
   @Post('/races/:id/positions')
@@ -71,8 +65,6 @@ export class RaceController {
 
     const race = await this.raceService.addPositions(id, data)
 
-    return {
-      data: await toJson(race),
-    }
+    return { data: await toJson(race) }
   }
 }

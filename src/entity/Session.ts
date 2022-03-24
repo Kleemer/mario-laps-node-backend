@@ -12,16 +12,16 @@ import { Round } from './Round'
 @Entity({ name: 'sessions' })
 export class Session extends BaseEntity implements AsJson {
   @PrimaryGeneratedColumn('uuid')
-  id: string
+    id: string
 
   @OneToMany(() => Round, round => round.session, { eager: true })
-  rounds: Round[]
+    rounds: Round[]
 
   @CreateDateColumn()
-  createdAt: Date
+    createdAt: Date
 
   @UpdateDateColumn()
-  updatedAt: Date
+    updatedAt: Date
 
   toJson(): any {
     return {

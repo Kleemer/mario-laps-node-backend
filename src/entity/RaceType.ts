@@ -9,10 +9,10 @@ import { AsJson } from '../common'
 @Entity({ name: 'raceTypes' })
 export class RaceType extends BaseEntity implements AsJson {
   @PrimaryColumn()
-  id: string
+    id: string
 
   @Column()
-  name: string
+    name: string
 
   toJson(): any {
     return {

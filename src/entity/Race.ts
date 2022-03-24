@@ -17,31 +17,31 @@ import { UserPosition } from './UserPosition'
 @Entity({ name: 'races' })
 export class Race extends BaseEntity implements AsJson {
   @PrimaryGeneratedColumn('uuid')
-  id: string
+    id: string
 
-  @ManyToOne(type => Round)
-  round: Round
+  @ManyToOne(_ => Round)
+    round: Round
 
-  @OneToOne(type => RaceType, { nullable: true })
-  raceType?: RaceType
+  @OneToOne(_ => RaceType, { nullable: true })
+    raceType?: RaceType
 
   @OneToMany(() => UserPosition, userPosition => userPosition.race, { eager: true })
-  userPositions: UserPosition[]
+    userPositions: UserPosition[]
 
   @Column('bool')
-  withLap: boolean
+    withLap: boolean
 
   @Column('uuid')
-  roundId: string
+    roundId: string
 
   @Column('uuid', { nullable: true })
-  raceTypeId: string | null
+    raceTypeId: string | null
 
   @CreateDateColumn()
-  createdAt: Date
+    createdAt: Date
 
   @UpdateDateColumn()
-  updatedAt: Date
+    updatedAt: Date
 
   toJson(): any {
     return {

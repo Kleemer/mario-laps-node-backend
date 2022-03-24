@@ -1,5 +1,5 @@
-import { User } from "../entity/User"
-import {getRepository} from "typeorm"
+import { User } from '../entity/User'
+import { getRepository } from 'typeorm'
 
 export class UserService {
   constructor(private userRepository = getRepository(User)) {}

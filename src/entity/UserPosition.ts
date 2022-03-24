@@ -14,28 +14,28 @@ import { User } from './User'
 @Entity({ name: 'userPositions' })
 export class UserPosition extends BaseEntity implements AsJson {
   @PrimaryGeneratedColumn('uuid')
-  id: string
+    id: string
 
   @Column('int')
-  position: number
+    position: number
 
-  @ManyToOne(type => User)
-  user: User
+  @ManyToOne(_ => User)
+    user: User
 
-  @ManyToOne(type => Race)
-  race: Race
-
-  @Column('uuid')
-  userId: string
+  @ManyToOne(_ => Race)
+    race: Race
 
   @Column('uuid')
-  raceId: string
+    userId: string
+
+  @Column('uuid')
+    raceId: string
 
   @CreateDateColumn()
-  createdAt: Date
+    createdAt: Date
 
   @UpdateDateColumn()
-  updatedAt: Date
+    updatedAt: Date
 
   toJson(): any {
     return {

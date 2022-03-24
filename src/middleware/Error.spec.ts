@@ -1,4 +1,4 @@
-import { Error } from "./Error"
+import { Error } from './Error'
 
 const mockNext = jest.fn()
 const mockJson = jest.fn()
@@ -10,7 +10,7 @@ const mockResponse = {
 
 const middleware = new Error()
 
-describe("Error middleware", () => {
+describe('Error middleware', () => {
   beforeEach(() => {
     jest.resetAllMocks()
     mockStatus.mockImplementation(function () {
@@ -18,20 +18,22 @@ describe("Error middleware", () => {
     })
   })
 
-  it("Should render error", () => {
-    const message = "foo"
+  it('Should render error', () => {
+    const message = 'foo'
     const status = 401
-    const errors = [{ message: "bar" }]
+    const errors = [ { message: 'bar' } ]
 
-    middleware.error({ message, errors, status }, {}, mockResponse, mockNext)
+    middleware.error({
+      message, errors, status, 
+    }, {}, mockResponse, mockNext)
 
     expect(mockStatus).toHaveBeenCalledWith(status)
     expect(mockJson).toHaveBeenCalledWith({ message, errors })
     expect(mockNext).toBeCalledTimes(0)
   })
 
-  it("Should render 500 error if no error status", () => {
-    const message = "foo"
+  it('Should render 500 error if no error status', () => {
+    const message = 'foo'
     middleware.error({ message }, {}, mockResponse, mockNext)
 
     expect(mockStatus).toHaveBeenCalledWith(500)
@@ -39,7 +41,7 @@ describe("Error middleware", () => {
     expect(mockNext).toBeCalledTimes(0)
   })
 
-  it("Should not render errors to a finished response.", () => {
+  it('Should not render errors to a finished response.', () => {
     middleware.error({}, {}, { finished: true }, mockNext)
     expect(mockStatus).toHaveBeenCalledTimes(0)
     expect(mockJson).toHaveBeenCalledTimes(0)

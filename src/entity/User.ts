@@ -11,22 +11,22 @@ import { AsJson } from '../common'
 @Entity({ name: 'users' })
 export class User extends BaseEntity implements AsJson {
   @PrimaryGeneratedColumn('uuid')
-  id: string
+    id: string
 
   @Column()
-  username: string
+    username: string
 
   @Column()
-  password: string
+    password: string
 
   @Column({ nullable: true })
-  avatar?: string
+    avatar?: string
 
   @CreateDateColumn()
-  createdAt: Date
+    createdAt: Date
 
   @UpdateDateColumn()
-  updatedAt: Date
+    updatedAt: Date
 
   toJson(): any {
     return {

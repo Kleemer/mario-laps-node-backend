@@ -2,7 +2,6 @@ import {
   Get,
   HttpCode,
   JsonController,
-  Param,
   Post,
 } from 'routing-controllers'
 import { logger, toJson } from '../common'
@@ -11,16 +10,14 @@ import { SessionService } from '../service/SessionService'
 @JsonController()
 export class SessionController {
   constructor(
-    private sessionService: SessionService = new SessionService()
+    private sessionService: SessionService = new SessionService(),
   ) {}
 
   @Get('/sessions')
   async getAll() {
     logger.debug('get /sessions')
 
-    return {
-      data: await toJson(this.sessionService.getSessions()),
-    }
+    return { data: await toJson(this.sessionService.getSessions()) }
   }
 
   @Post('/sessions')
@@ -30,8 +27,6 @@ export class SessionController {
 
     const session = await this.sessionService.createSession()
 
-    return {
-      data: await toJson(session),
-    }
+    return { data: await toJson(session) }
   }
 }

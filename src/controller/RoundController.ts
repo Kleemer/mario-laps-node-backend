@@ -14,7 +14,7 @@ interface RoundInput {
 @JsonController()
 export class RoundController {
   constructor(
-    private roundService: RoundService = new RoundService()
+    private roundService: RoundService = new RoundService(),
   ) {}
 
   @Post('/rounds')
@@ -23,8 +23,6 @@ export class RoundController {
     logger.debug('post /rounds')
     const round = await this.roundService.createRound(data.sessionId)
 
-    return {
-      data: await toJson(round),
-    }
+    return { data: await toJson(round) }
   }
 }
