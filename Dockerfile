@@ -1,6 +1,4 @@
-# FROM flyway/flyway as flyway-builder
-
-FROM node:14.0-alpine
+FROM node:14.17.6-alpine
 
 ARG FLYWAY_VERSION=7.3.2
 ARG LANG=C.UTF-8
