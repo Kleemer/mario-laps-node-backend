@@ -2,6 +2,7 @@ import {
   Get,
   HttpCode,
   JsonController,
+  Param,
   Post,
 } from 'routing-controllers'
 import { logger, toJson } from '../common'
@@ -18,6 +19,11 @@ export class SessionController {
     logger.debug('get /sessions')
 
     return { data: await toJson(this.sessionService.getSessions()) }
+  }
+
+  @Get('/sessions/:id')
+  async getOne(@Param('id') id: string) {
+    return { data: await toJson(this.sessionService.getSession(id)) }
   }
 
   @Post('/sessions')

@@ -12,6 +12,10 @@ export class SessionService {
     return this.sessionRepository.find()
   }
 
+  async getSession(id: string): Promise<Session | null> {
+    return this.sessionRepository.findOne({ where: { id } })
+  }
+
   async createSession(): Promise<Session> {
     const result = await this.sessionRepository.save(Session.create())
     await result.reload()

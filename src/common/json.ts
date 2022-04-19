@@ -2,7 +2,7 @@ interface AsJson {
   toJson: () => any
 }
 
-type Convertible = AsJson | AsJson[] | undefined
+type Convertible = AsJson | AsJson[] | null | undefined
 
 /**
  * Performs a (shallow) transform of the supplied object by calling the objects toJson function.

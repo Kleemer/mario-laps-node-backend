@@ -1,5 +1,6 @@
 import {
   Body,
+  Delete,
   HttpCode,
   JsonController,
   Param,
@@ -66,5 +67,14 @@ export class RaceController {
     const race = await this.raceService.addPositions(id, data)
 
     return { data: await toJson(race) }
+  }
+
+  @Delete('/races/:id')
+  @HttpCode(204)
+  async delete(@Param('id') id: string) {
+    logger.debug('delete /races/id', id)
+    await this.raceService.deleteRace(id)
+
+    return { data: { ok: true } }
   }
 }

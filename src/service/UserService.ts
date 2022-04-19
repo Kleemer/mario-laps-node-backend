@@ -8,8 +8,8 @@ export class UserService {
     return this.userRepository.find()
   }
 
-  async getUser(id: string): Promise<User | undefined> {
-    return this.userRepository.findOne(id)
+  async getUser(id: string): Promise<User | null> {
+    return this.userRepository.findOne({ where: { id } })
   }
 
   async createUser(user: User): Promise<User> {

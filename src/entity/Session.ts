@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 import { AsJson, toJson } from '../common'
+import { sortByCreated } from '../common/array'
 import { Round } from './Round'
 
 @Entity({ name: 'sessions' })
@@ -26,7 +27,7 @@ export class Session extends BaseEntity implements AsJson {
   toJson(): any {
     return {
       id: this.id,
-      rounds: toJson(this.rounds),
+      rounds: toJson(this.rounds.sort(sortByCreated)),
       createdAt: this.createdAt?.toISOString(),
       updatedAt: this.updatedAt?.toISOString(),
     }

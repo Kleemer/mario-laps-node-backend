@@ -103,6 +103,30 @@ paths:
                       $ref: "#/components/schemas/Session"
                 required:
                   - data
+  /sessions/{session}:
+    get:
+      summary: Get Session
+      parameters:
+        - in: path
+          name: session
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    items:
+                      $ref: "#/components/schemas/Session"
+                required:
+                  - data
   /rounds:
     post:
       summary: Create a new round in the session
@@ -155,6 +179,23 @@ paths:
                     type: object
                     items:
                       $ref: "#/components/schemas/Race"
+                required:
+                  - data
+  /races/{race}:
+    delete:
+      summary: Delete race
+      responses:
+        204:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    items:
+                      $ref: "#/components/schemas/OkPayload"
                 required:
                   - data
   /races/{race}/laps:
@@ -257,7 +298,23 @@ paths:
                       $ref: "#/components/schemas/Race"
                 required:
                   - data
-
+  /race-types:
+    get:
+      summary: Returns the list of race types
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/RaceType"
+                required:
+                  - data
 components:
   schemas:
     Session:
@@ -279,6 +336,9 @@ components:
         id:
           type: string
           format: uuid
+        sessionId:
+          type: string
+          format: uuid
         createdAt:
           type: string
           format: date-time
@@ -290,6 +350,11 @@ components:
       type: object
       properties:
         id:
+          type: string
+          format: uuid
+        withLap:
+          type: boolean
+        roundId:
           type: string
           format: uuid
         createdAt:
@@ -333,6 +398,11 @@ components:
         createdAt:
           type: string
           format: date-time
+    OkPayload:
+      type: object
+      properties:
+        ok:
+          type: boolean
     RoundInput:
       type: object
       properties:

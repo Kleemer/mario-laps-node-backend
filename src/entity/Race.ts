@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   OneToOne,
@@ -22,8 +23,9 @@ export class Race extends BaseEntity implements AsJson {
   @ManyToOne(_ => Round)
     round: Round
 
-  @OneToOne(_ => RaceType, { nullable: true })
-    raceType?: RaceType
+  @OneToOne(_ => RaceType, { nullable: true, cascade: true, eager: true })
+  @JoinColumn()
+    raceType: RaceType | null
 
   @OneToMany(() => UserPosition, userPosition => userPosition.race, { eager: true })
     userPositions: UserPosition[]
@@ -48,8 +50,8 @@ export class Race extends BaseEntity implements AsJson {
       id: this.id,
       withLap: this.withLap,
       roundId: this.roundId,
-      userPositions: toJson(this.userPositions),
-      raceType: toJson(this.raceType),
+      userPositions: toJson(this.userPositions.sort((u1, u2) => u1.position - u2.position)),
+      raceType: this.raceTypeId ? toJson(this.raceType) : null,
       raceTypeId: this.raceTypeId,
       createdAt: this.createdAt?.toISOString(),
       updatedAt: this.updatedAt?.toISOString(),
