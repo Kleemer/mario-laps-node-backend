@@ -1,4 +1,5 @@
 import {
+  Body,
   Get,
   HttpCode,
   JsonController,
@@ -7,6 +8,10 @@ import {
 } from 'routing-controllers'
 import { logger, toJson } from '../common'
 import { SessionService } from '../service/SessionService'
+
+interface SessionInput {
+  players: string[]
+}
 
 @JsonController()
 export class SessionController {
@@ -28,10 +33,10 @@ export class SessionController {
 
   @Post('/sessions')
   @HttpCode(201)
-  async create() {
-    logger.debug('post /sessions')
+  async create(@Body() data: SessionInput) {
+    logger.debug('post /sessions', data)
 
-    const session = await this.sessionService.createSession()
+    const session = await this.sessionService.createSession(data.players)
 
     return { data: await toJson(session) }
   }

@@ -16,8 +16,10 @@ export class SessionService {
     return this.sessionRepository.findOne({ where: { id } })
   }
 
-  async createSession(): Promise<Session> {
+  async createSession(players: string[]): Promise<Session> {
     const result = await this.sessionRepository.save(Session.create())
+    result.data = { order: players }
+    await result.save()
     await result.reload()
 
     // Create first round

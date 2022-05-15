@@ -1,5 +1,6 @@
 import {
   BaseEntity,
+  Column,
   CreateDateColumn,
   Entity,
   OneToMany,
@@ -24,10 +25,14 @@ export class Session extends BaseEntity implements AsJson {
   @UpdateDateColumn()
     updatedAt: Date
 
+  @Column({ type: 'json', nullable: true })
+    data?: { order?: string[] } | null
+
   toJson(): any {
     return {
       id: this.id,
       rounds: toJson(this.rounds.sort(sortByCreated)),
+      data: JSON.stringify(this.data),
       createdAt: this.createdAt?.toISOString(),
       updatedAt: this.updatedAt?.toISOString(),
     }

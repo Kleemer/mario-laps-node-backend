@@ -89,6 +89,16 @@ paths:
                   - data
     post:
       summary: Create a new session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/SessionInput"
+                - type: object
+                  required:
+                    - players
       responses:
         201:
           description: OK
@@ -403,6 +413,13 @@ components:
       properties:
         ok:
           type: boolean
+    SessionInput:
+      type: object
+      properties:
+        players:
+          type: array
+          items:
+            type: string
     RoundInput:
       type: object
       properties:
