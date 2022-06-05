@@ -10,6 +10,10 @@ export class RaceService {
     private userPositionRepository = getRepository(UserPosition),
   ) {}
 
+  async getRaces(roundId: string): Promise<Race[]> {
+    return this.raceRepository.find({ where: { roundId } })
+  }
+
   async getRace(id: string): Promise<Race> {
     return this.raceRepository.findOneOrFail({ where: { id } })
   }

@@ -28,4 +28,16 @@ export class SessionService {
 
     return result
   }
+
+  async deleteSession(sessionId: string): Promise<boolean> {
+    const rounds = await this.roundService.getRounds(sessionId)
+
+    await Promise.all([
+      rounds.map(async (round) => this.roundService.deleteRound(round.id)),
+    ])
+
+    await this.sessionRepository.delete({ id: sessionId })
+
+    return true
+  }
 }

@@ -27,4 +27,16 @@ export class RoundService {
 
     return result
   }
+
+  async deleteRound(roundId: string): Promise<boolean> {
+    const races = await this.raceService.getRaces(roundId)
+
+    await Promise.all([
+      races.map(async (race) => this.raceService.deleteRace(race.id)),
+    ])
+
+    await this.roundRepository.delete({ id: roundId })
+
+    return true
+  }
 }

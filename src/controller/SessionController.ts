@@ -1,5 +1,6 @@
 import {
   Body,
+  Delete,
   Get,
   HttpCode,
   JsonController,
@@ -39,5 +40,14 @@ export class SessionController {
     const session = await this.sessionService.createSession(data.players)
 
     return { data: await toJson(session) }
+  }
+
+  @Delete('/sessions/:id')
+  @HttpCode(204)
+  async delete(@Param('id') id: string) {
+    logger.debug('delete /sessions/id', id)
+    await this.sessionService.deleteSession(id)
+
+    return { data: { ok: true } }
   }
 }

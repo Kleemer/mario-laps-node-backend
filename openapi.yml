@@ -137,6 +137,22 @@ paths:
                       $ref: "#/components/schemas/Session"
                 required:
                   - data
+    delete:
+      summary: Delete Session
+      responses:
+        204:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    items:
+                      $ref: "#/components/schemas/OkPayload"
+                required:
+                  - data
   /rounds:
     post:
       summary: Create a new round in the session
