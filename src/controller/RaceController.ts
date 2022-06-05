@@ -69,6 +69,15 @@ export class RaceController {
     return { data: await toJson(race) }
   }
 
+  @Patch('/races/:id/positions')
+  async updatePositions(@Param('id') id: string, @Body() data: RacePositionsInput[]) {
+    logger.debug('patch /races/id/positions', id, data)
+
+    const race = await this.raceService.addPositions(id, data)
+
+    return { data: await toJson(race) }
+  }
+
   @Delete('/races/:id')
   @HttpCode(204)
   async delete(@Param('id') id: string) {

@@ -1,11 +1,9 @@
 import {
   BaseEntity,
   Column,
-  CreateDateColumn,
   Entity,
   ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm'
 import { AsJson } from '../common'
 import { Race } from './Race'
@@ -31,10 +29,10 @@ export class UserPosition extends BaseEntity implements AsJson {
   @Column('uuid')
     raceId: string
 
-  @CreateDateColumn()
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date
 
-  @UpdateDateColumn()
+  @Column({ type: 'timestamp', onUpdate: 'CURRENT_TIMESTAMP', nullable: true })
     updatedAt: Date
 
   toJson(): any {

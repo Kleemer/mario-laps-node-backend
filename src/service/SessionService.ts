@@ -9,7 +9,8 @@ export class SessionService {
   ) {}
 
   async getSessions(): Promise<Session[]> {
-    return this.sessionRepository.find()
+    return (await this.sessionRepository.find())
+      .sort((s1, s2) => s2.createdAt.getTime() - s1.createdAt.getTime())
   }
 
   async getSession(id: string): Promise<Session | null> {

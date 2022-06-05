@@ -1,12 +1,10 @@
 import {
   BaseEntity,
   Column,
-  CreateDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm'
 import { AsJson, toJson } from '../common'
 import { sortByCreated } from '../common/array'
@@ -27,10 +25,10 @@ export class Round extends BaseEntity implements AsJson {
   @Column('uuid')
     sessionId: string
 
-  @CreateDateColumn()
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date
 
-  @UpdateDateColumn()
+  @Column({ type: 'timestamp', onUpdate: 'CURRENT_TIMESTAMP', nullable: true })
     updatedAt: Date
 
 

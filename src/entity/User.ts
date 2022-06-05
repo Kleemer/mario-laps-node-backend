@@ -1,10 +1,8 @@
 import {
   BaseEntity,
   Column,
-  CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm'
 import { AsJson } from '../common'
 
@@ -22,10 +20,10 @@ export class User extends BaseEntity implements AsJson {
   @Column({ nullable: true })
     avatar?: string
 
-  @CreateDateColumn()
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date
 
-  @UpdateDateColumn()
+  @Column({ type: 'timestamp', onUpdate: 'CURRENT_TIMESTAMP', nullable: true })
     updatedAt: Date
 
   toJson(): any {
