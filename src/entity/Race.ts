@@ -18,7 +18,7 @@ export class Race extends BaseEntity implements AsJson {
   @PrimaryGeneratedColumn('uuid')
     id: string
 
-  @ManyToOne(_ => Round)
+  @ManyToOne(_ => Round, round => round.id, { onDelete: 'CASCADE' })
     round: Round
 
   @OneToOne(_ => RaceType, { nullable: true, cascade: true, eager: true })

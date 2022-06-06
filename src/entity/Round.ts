@@ -16,7 +16,7 @@ export class Round extends BaseEntity implements AsJson {
   @PrimaryGeneratedColumn('uuid')
     id: string
 
-  @ManyToOne(_ => Session)
+  @ManyToOne(_ => Session, session => session.id, { onDelete: 'CASCADE' })
     session: Session
 
   @OneToMany(() => Race, race => race.round, { eager: true })

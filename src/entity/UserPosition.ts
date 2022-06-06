@@ -17,10 +17,10 @@ export class UserPosition extends BaseEntity implements AsJson {
   @Column('int')
     position: number
 
-  @ManyToOne(_ => User)
+  @ManyToOne(_ => User, user => user.id, { onDelete: 'CASCADE' })
     user: User
 
-  @ManyToOne(_ => Race)
+  @ManyToOne(_ => Race, race => race.id, { onDelete: 'CASCADE' })
     race: Race
 
   @Column('uuid')
