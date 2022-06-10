@@ -10,7 +10,7 @@ import {
 } from 'typeorm'
 import { AsJson, toJson } from '../common'
 import { RaceType } from './RaceType'
-import { Round } from './Round'
+import { Session } from './Session'
 import { UserPosition } from './UserPosition'
 
 @Entity({ name: 'races' })
@@ -18,8 +18,8 @@ export class Race extends BaseEntity implements AsJson {
   @PrimaryGeneratedColumn('uuid')
     id: string
 
-  @ManyToOne(_ => Round, round => round.id, { onDelete: 'CASCADE' })
-    round: Round
+  @ManyToOne(_ => Session, session => session.id, { onDelete: 'CASCADE' })
+    session: Session
 
   @OneToOne(_ => RaceType, { nullable: true, cascade: true, eager: true })
   @JoinColumn()
@@ -32,7 +32,7 @@ export class Race extends BaseEntity implements AsJson {
     withLap: boolean
 
   @Column('uuid')
-    roundId: string
+    sessionId: string
 
   @Column('uuid', { nullable: true })
     raceTypeId: string | null
@@ -47,7 +47,7 @@ export class Race extends BaseEntity implements AsJson {
     return {
       id: this.id,
       withLap: this.withLap,
-      roundId: this.roundId,
+      sessionId: this.sessionId,
       userPositions: toJson(this.userPositions.sort((u1, u2) => u1.position - u2.position)),
       raceType: this.raceTypeId ? toJson(this.raceType) : null,
       raceTypeId: this.raceTypeId,

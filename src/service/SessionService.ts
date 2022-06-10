@@ -1,11 +1,11 @@
 import { Session } from '../entity/Session'
 import { getRepository } from 'typeorm'
-import { RoundService } from './RoundService'
+import { RaceService } from './RaceService'
 
 export class SessionService {
   constructor(
     private sessionRepository = getRepository(Session),
-    private roundService: RoundService = new RoundService(),
+    private raceService: RaceService = new RaceService(),
   ) {}
 
   async getSessions(): Promise<Session[]> {
@@ -23,18 +23,18 @@ export class SessionService {
     await result.save()
     await result.reload()
 
-    // Create first round
-    await this.roundService.createRound(result.id)
+    // Create first race
+    await this.raceService.createRace(result.id, true)
     await result.reload()
 
     return result
   }
 
   async deleteSession(sessionId: string): Promise<boolean> {
-    const rounds = await this.roundService.getRounds(sessionId)
+    const races = await this.raceService.getRaces(sessionId)
 
     await Promise.all([
-      rounds.map(async (round) => this.roundService.deleteRound(round.id)),
+      races.map(async (race) => this.raceService.deleteRace(race.id)),
     ])
 
     await this.sessionRepository.delete({ id: sessionId })

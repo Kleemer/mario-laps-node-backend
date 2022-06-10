@@ -10,16 +10,16 @@ export class RaceService {
     private userPositionRepository = getRepository(UserPosition),
   ) {}
 
-  async getRaces(roundId: string): Promise<Race[]> {
-    return this.raceRepository.find({ where: { roundId } })
+  async getRaces(sessionId: string): Promise<Race[]> {
+    return this.raceRepository.find({ where: { sessionId } })
   }
 
   async getRace(id: string): Promise<Race> {
     return this.raceRepository.findOneOrFail({ where: { id } })
   }
 
-  async createRace(roundId: string, withLap?: boolean): Promise<Race | undefined> {
-    const previousRace = await this.raceRepository.findOne({ where: { roundId }, order: { createdAt: 'DESC' } })
+  async createRace(sessionId: string, withLap?: boolean): Promise<Race | undefined> {
+    const previousRace = await this.raceRepository.findOne({ where: { sessionId }, order: { createdAt: 'DESC' } })
 
     const _withLap = typeof withLap === 'boolean'
       ? withLap
@@ -27,9 +27,9 @@ export class RaceService {
         ? previousRace.withLap
         : false
 
-    const result = await this.raceRepository.save(Race.create({ roundId, withLap: _withLap }))
-
+    const result = await this.raceRepository.save(Race.create({ sessionId, withLap: _withLap }))
     await result.reload()
+
     return result
   }
 

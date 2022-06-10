@@ -11,7 +11,7 @@ import { logger, toJson } from '../common'
 import { RaceService } from '../service/RaceService'
 
 interface RaceInput {
-  roundId: string
+  sessionId: string
 }
 
 interface RaceLapInput {
@@ -37,7 +37,7 @@ export class RaceController {
   @HttpCode(201)
   async create(@Body() data: RaceInput) {
     logger.debug('post /races')
-    const race = await this.raceService.createRace(data.roundId)
+    const race = await this.raceService.createRace(data.sessionId)
 
     return { data: await toJson(race) }
   }

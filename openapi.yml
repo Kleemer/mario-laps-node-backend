@@ -7,7 +7,6 @@ servers:
   - url: /
 tags:
   - name: session
-  - name: round
   - name: race
 paths:
   /health:
@@ -153,36 +152,9 @@ paths:
                       $ref: "#/components/schemas/OkPayload"
                 required:
                   - data
-  /rounds:
-    post:
-      summary: Create a new round in the session
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: "#/components/schemas/RoundInput"
-                - type: object
-                  required:
-                    - sessionId
-      responses:
-        201:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    items:
-                      $ref: "#/components/schemas/Round"
-                required:
-                  - data
   /races:
     post:
-      summary: Create a new race in the round
+      summary: Create a new race in the session
       requestBody:
         required: true
         content:
@@ -192,7 +164,7 @@ paths:
                 - $ref: "#/components/schemas/RaceInput"
                 - type: object
                   required:
-                    - roundId
+                    - sessionId
       responses:
         201:
           description: OK
@@ -324,6 +296,37 @@ paths:
                       $ref: "#/components/schemas/Race"
                 required:
                   - data
+    patch:
+      summary: Patch race scores
+      parameters:
+        - in: path
+          name: race
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/RacePositionsInput"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    items:
+                      $ref: "#/components/schemas/Race"
+                required:
+                  - data
   /race-types:
     get:
       summary: Returns the list of race types
@@ -352,22 +355,6 @@ components:
         createdAt:
           type: string
           format: date-time
-        rounds:
-          type: array
-          items:
-            $ref: "#/components/schemas/Round"
-    Round:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        sessionId:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
         races:
           type: array
           items:
@@ -380,7 +367,7 @@ components:
           format: uuid
         withLap:
           type: boolean
-        roundId:
+        sessionId:
           type: string
           format: uuid
         createdAt:
@@ -436,12 +423,6 @@ components:
           type: array
           items:
             type: string
-    RoundInput:
-      type: object
-      properties:
-        sessionId:
-          type: string
-          format: uuid
     RaceInput:
       type: object
       properties:

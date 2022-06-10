@@ -7,15 +7,15 @@ import {
 } from 'typeorm'
 import { AsJson, toJson } from '../common'
 import { sortByCreated } from '../common/array'
-import { Round } from './Round'
+import { Race } from './Race'
 
 @Entity({ name: 'sessions' })
 export class Session extends BaseEntity implements AsJson {
   @PrimaryGeneratedColumn('uuid')
     id: string
 
-  @OneToMany(() => Round, round => round.session, { eager: true })
-    rounds: Round[]
+  @OneToMany(() => Race, race => race.session, { eager: true })
+    races: Race[]
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date
@@ -29,7 +29,7 @@ export class Session extends BaseEntity implements AsJson {
   toJson(): any {
     return {
       id: this.id,
-      rounds: toJson(this.rounds.sort(sortByCreated)),
+      races: toJson(this.races.sort(sortByCreated)),
       data: JSON.stringify(this.data),
       createdAt: this.createdAt?.toISOString(),
       updatedAt: this.updatedAt?.toISOString(),
